@@ -330,7 +330,7 @@
     ('- print)
     ((magnitude decimal) do: [block (x) (x print)]))
 
-  (method isNegative () true)
+  (method isNegative () ((magnitude isZero) not))
   (method isNonnegative () (magnitude isZero))
   (method isStrictlyPositive () false)
   (method negated () (LargePositiveInteger withMagnitude: magnitude))
