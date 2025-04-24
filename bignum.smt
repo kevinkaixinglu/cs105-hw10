@@ -1,4 +1,4 @@
-;; Starter code for SmallTalk assignement.
+   ;; Starter code for SmallTalk assignement.
 ;; Author: Richard Townsend 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -475,8 +475,27 @@
     (LargeNegativeInteger 
       withMagnitude: 
       ((self magnitude) * (negativeOperand magnitude))))
+  
 
+  (method + (otherInteger)
+    (otherInteger addToLargePositiveInteger: self))
+
+  (method addToLargePositiveInteger: (positiveOperand)
+    (LargePositiveInteger 
+      withMagnitude: 
+      ((self magnitude) + (positiveOperand magnitude))))
+
+  (method addToLargeNegativeInteger: (negativeOperand)
+  (((self magnitude) < (negativeOperand magnitude)) ifTrue:ifFalse:
+    {(LargeNegativeInteger 
+       withMagnitude: 
+       ((negativeOperand magnitude) - (self magnitude)))}
+    {(LargePositiveInteger 
+       withMagnitude: 
+       ((self magnitude) - (negativeOperand magnitude)))})
+  )
 )
+
 
 ;; Represents a negative integer
 (class LargeNegativeInteger
@@ -508,13 +527,24 @@
     (LargePositiveInteger 
       withMagnitude: 
       ((self magnitude) * (negativeOperand magnitude))))
+
+  (method + (otherInteger)
+    (otherInteger addToLargeNegativeInteger: self))
+
+  (method addToLargePositiveInteger: (positiveOperand)
+    (((self magnitude) < (positiveOperand magnitude)) ifTrue:ifFalse:
+      {(LargePositiveInteger 
+         withMagnitude: 
+         ((positiveOperand magnitude) - (self magnitude)))}
+      {(LargeNegativeInteger 
+         withMagnitude: 
+         ((self magnitude) - (positiveOperand magnitude)))}))
+  
+  (method addToLargeNegativeInteger: (negativeOperand)
+    (LargeNegativeInteger 
+      withMagnitude: 
+      ((self magnitude) + (negativeOperand magnitude))))
 )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Put your unit tests for Exercise 2 here
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Test negation and printing
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Put your unit tests for Exercise 2 here
@@ -538,13 +568,29 @@
         (check-print ((LargeInteger fromSmall: 0) negated) 0)
 
         ;;DIDNT KNOW HOW TO DEFINE FOUR AND NEGFOUR HERE help figure it out 
+        (val four (LargePositiveInteger withMagnitude: (Natural fromSmall: 4)))
+        (val negFour (LargeNegativeInteger withMagnitude: (Natural fromSmall: 4)))
 
         (check-print (four * four)     16) 
         (check-print (four * negFour) -16) 
         (check-print (negFour * four) -16) 
         (check-print (negFour * negFour) 16)
 
-        echo '(use bignum.smt) ({(four * four)} messageTrace)' | usmalltalk -qq | grep multiplyByLarge
-        echo '(use bignum.smt) ({(four * negFour)} messageTrace)' | usmalltalk -qq | grep multiplyByLarge
-        echo '(use bignum.smt) ({(negFour * four)} messageTrace)' | usmalltalk -qq | grep multiplyByLarge
-        echo '(use bignum.smt) ({(negFour * negFour)} messageTrace)' | usmalltalk -qq | grep multiplyByLarge
+      (check-print ((LargePositiveInteger withMagnitude: (Natural fromSmall: 5)) 
+              + (LargePositiveInteger withMagnitude: (Natural fromSmall: 3))) 8)
+
+      (check-print ((LargePositiveInteger withMagnitude: (Natural fromSmall: 5)) 
+                    + (LargeNegativeInteger withMagnitude: (Natural fromSmall: 3))) 2)
+
+      (check-print ((LargePositiveInteger withMagnitude: (Natural fromSmall: 3)) 
+                    + (LargeNegativeInteger withMagnitude: (Natural fromSmall: 5))) -2)
+
+      (check-print ((LargeNegativeInteger withMagnitude: (Natural fromSmall: 3)) 
+                    + (LargePositiveInteger withMagnitude: (Natural fromSmall: 5))) 2)
+
+      (check-print ((LargeNegativeInteger withMagnitude: (Natural fromSmall: 5)) 
+                    + (LargePositiveInteger withMagnitude: (Natural fromSmall: 3))) -2)
+
+      (check-print ((LargeNegativeInteger withMagnitude: (Natural fromSmall: 5)) 
+                    + (LargeNegativeInteger withMagnitude: (Natural fromSmall: 3))) -8)
+
