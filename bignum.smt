@@ -98,7 +98,7 @@
 
   (method invariant () true) 
 
-  (method timesDigit:plus: (d r) (Natural fromSmall: r)) ; private
+  (method timesDigit:plus: (d r) (Natural fromSmall: r)) 
 
   ;; for debugging
   (method printrep () (0 print))
@@ -239,7 +239,7 @@
 
   (class-method withMagnitude: (aNatural)
       ((self new) magnitude: aNatural))
-  (method magnitude: (aNatural) ; private, for initialization
+  (method magnitude: (aNatural) 
       (set magnitude aNatural)
       self)
 
