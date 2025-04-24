@@ -450,7 +450,7 @@
   (method isStrictlyPositive () ((magnitude isZero) not))
 
   (method negated ()
-  ((magnitude isZero) ifTrue:ifFalse:
+    ((magnitude isZero) ifTrue:ifFalse:
     {self}   
     {(LargeNegativeInteger withMagnitude: magnitude)}))
 
@@ -576,21 +576,23 @@
         (check-print (negFour * four) -16) 
         (check-print (negFour * negFour) 16)
 
-      (check-print ((LargePositiveInteger withMagnitude: (Natural fromSmall: 5)) 
-              + (LargePositiveInteger withMagnitude: (Natural fromSmall: 3))) 8)
+        (check-print ((LargePositiveInteger withMagnitude: (Natural fromSmall: 5)) 
+                + (LargePositiveInteger withMagnitude: (Natural fromSmall: 3))) 8)
 
-      (check-print ((LargePositiveInteger withMagnitude: (Natural fromSmall: 5)) 
-                    + (LargeNegativeInteger withMagnitude: (Natural fromSmall: 3))) 2)
+        (check-print ((LargePositiveInteger withMagnitude: (Natural fromSmall: 5)) 
+                      + (LargeNegativeInteger withMagnitude: (Natural fromSmall: 3))) 2)
 
-      (check-print ((LargePositiveInteger withMagnitude: (Natural fromSmall: 3)) 
-                    + (LargeNegativeInteger withMagnitude: (Natural fromSmall: 5))) -2)
+        (check-print ((LargePositiveInteger withMagnitude: (Natural fromSmall: 3)) 
+                      + (LargeNegativeInteger withMagnitude: (Natural fromSmall: 5))) -2)
 
-      (check-print ((LargeNegativeInteger withMagnitude: (Natural fromSmall: 3)) 
-                    + (LargePositiveInteger withMagnitude: (Natural fromSmall: 5))) 2)
+        (check-print ((LargeNegativeInteger withMagnitude: (Natural fromSmall: 3)) 
+                      + (LargePositiveInteger withMagnitude: (Natural fromSmall: 5))) 2)
 
-      (check-print ((LargeNegativeInteger withMagnitude: (Natural fromSmall: 5)) 
-                    + (LargePositiveInteger withMagnitude: (Natural fromSmall: 3))) -2)
+        (check-print ((LargeNegativeInteger withMagnitude: (Natural fromSmall: 5)) 
+                      + (LargePositiveInteger withMagnitude: (Natural fromSmall: 3))) -2)
 
-      (check-print ((LargeNegativeInteger withMagnitude: (Natural fromSmall: 5)) 
-                    + (LargeNegativeInteger withMagnitude: (Natural fromSmall: 3))) -8)
+        (check-print ((LargeNegativeInteger withMagnitude: (Natural fromSmall: 5)) 
+                      + (LargeNegativeInteger withMagnitude: (Natural fromSmall: 3))) -8)
 
+
+        
